@@ -11,7 +11,8 @@
 <meta property="og:description" content="机械设计制造及其自动化 · 齐鲁理工学院 2027 届｜国家奖学金 · 省级金奖 / 银奖 · 5008 米雪山" />
 <meta property="og:type" content="website" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0c'/%3E%3Cpath d='M12 44 L26 20 L36 36 L42 27 L52 44 Z' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E" />
-<link rel="preload" as="image" href="assets/images/hike-cloud.jpg" />
+<link rel="preload" as="image" href="assets/images/hike-cloud.jpg" fetchpriority="high" />
+<link rel="preload" as="style" href="assets/css/style.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 <script type="application/ld+json">
 {
@@ -168,7 +169,7 @@
         <p class="story__meta" data-reveal style="--d:.18s">山脊 · 雾中的长线</p>
       </div>
       <figure class="story__media" data-reveal style="--d:.1s">
-        <img src="assets/images/hike-cloud.jpg" alt="雾气翻涌的山脊上，背着登山包向远处群山挥手" width="1350" height="1800" loading="lazy" />
+        <img src="assets/images/hike-cloud.jpg" alt="雾气翻涌的山脊上，背着登山包向远处群山挥手" width="1350" height="1800" fetchpriority="high" decoding="async" />
       </figure>
     </div>
   </section>
@@ -187,10 +188,10 @@
         <figure class="about__portrait" data-reveal>
           <div class="about__frame slider" data-slider data-autoplay="5200">
             <div class="slider__stage">
-              <img class="is-active" data-label="日常" src="assets/images/portrait-mirror.jpg" alt="薛杨在酒店走廊里的对镜自拍，穿绿色格纹衬衫" width="1050" height="1400" loading="lazy" />
-              <img data-label="雪线以上" src="assets/images/life-snow.jpg" alt="雪山上，薛杨戴着反光的滑雪镜，镜片里映出山的轮廓" width="1100" height="1467" loading="lazy" />
-              <img data-label="水乡的夏天" src="assets/images/portrait-bridge.jpg" alt="夏天，薛杨坐在水乡石桥上，戴墨镜穿短裤" width="1100" height="1375" loading="lazy" />
-              <img data-label="周末" src="assets/images/portrait-shark.jpg" alt="周末在商店里，薛杨抱着一只蓝色鲨鱼玩偶" width="1100" height="1375" loading="lazy" />
+              <img class="is-active" data-label="日常" src="assets/images/portrait-mirror.jpg" alt="薛杨在酒店走廊里的对镜自拍，穿绿色格纹衬衫" width="1050" height="1400" loading="lazy" decoding="async" />
+              <img data-label="雪线以上" src="assets/images/life-snow.jpg" alt="雪山上，薛杨戴着反光的滑雪镜，镜片里映出山的轮廓" width="1100" height="1467" loading="lazy" decoding="async" />
+              <img data-label="水乡的夏天" src="assets/images/portrait-bridge.jpg" alt="夏天，薛杨坐在水乡石桥上，戴墨镜穿短裤" width="1100" height="1375" loading="lazy" decoding="async" />
+              <img data-label="周末" src="assets/images/portrait-shark.jpg" alt="周末在商店里，薛杨抱着一只蓝色鲨鱼玩偶" width="1100" height="1375" loading="lazy" decoding="async" />
             </div>
             <div class="slider__bar">
               <span class="slider__label" data-slide-label>日常</span>
@@ -221,7 +222,7 @@
           </p>
 
           <div class="profile" data-reveal style="--d:.24s">
-            <img class="profile__photo" src="assets/images/portrait-id.jpg" alt="薛杨的证件照" width="640" height="640" loading="lazy" />
+            <img class="profile__photo" src="assets/images/portrait-id.jpg" alt="薛杨的证件照" width="640" height="640" loading="lazy" decoding="async" />
             <div class="profile__body">
               <p class="profile__name">薛杨 <span>Xue Yang</span></p>
               <p class="profile__line">齐鲁理工学院 · 机械设计制造及其自动化</p>
@@ -286,8 +287,7 @@
           <h2 class="h2" data-reveal style="--d:.06s">每一步都不算快，<br class="br-pc" />但没有一步是白走的。</h2>
         </div>
         <p class="section__note" data-reveal style="--d:.12s">
-          左边是学历与成绩，右边是实习、学生工作与项目。
-          两条线并行：一条让我把东西想明白，一条让我把事做成、把人带起来。
+          三列：学业、实习、在校经历。一条把东西想明白，一条把技术讲给客户听，一条把人和事组织起来。
         </p>
       </div>
 
@@ -325,11 +325,11 @@
           </ol>
         </section>
 
-        <section class="track" aria-label="实践轨迹">
-          <header class="track__head" data-reveal style="--d:.08s">
+        <section class="track" aria-label="实习轨迹">
+          <header class="track__head" data-reveal style="--d:.06s">
             <span class="track__k">B</span>
-            <h3>实践轨迹</h3>
-            <span class="track__en">Practice</span>
+            <h3>实习轨迹</h3>
+            <span class="track__en">Internship</span>
           </header>
 
           <ol class="track__list">
@@ -352,6 +352,27 @@
                 <li>青少儿编程与硬件课程授课，累计 100+ 课时</li>
                 <li>参与教学体系优化，负责学情沟通与家长答疑</li>
                 <li>课程续费率与品牌转介绍率提升</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+
+        <section class="track" aria-label="在校经历">
+          <header class="track__head" data-reveal style="--d:.12s">
+            <span class="track__k">C</span>
+            <h3>在校经历</h3>
+            <span class="track__en">On Campus</span>
+          </header>
+
+          <ol class="track__list">
+            <li class="tli" data-reveal style="--d:.12s">
+              <p class="tli__time">2025.09 — 2027.06</p>
+              <h4>班级团支部书记</h4>
+              <p class="tli__org">齐鲁理工学院 · 机械设计制造及其自动化</p>
+              <ul class="tli__points">
+                <li>负责班级团务、主题团日与青年学习的组织与记录</li>
+                <li>对接学院团委，把通知、材料、评优落到具体的人</li>
+                <li>和班委一起带班，跟到 2027 年毕业</li>
               </ul>
             </li>
 
@@ -381,10 +402,10 @@
 
       <article class="project project--feature" data-reveal>
         <div class="project__media">
-          <img src="assets/images/project-tiaozhan.jpg" alt="薛杨与团队在第十四届建设银行“挑战杯”山东省大学生创业计划竞赛展板前合影" width="1600" height="1200" loading="lazy" />
+          <img src="assets/images/project-tiaozhan.jpg" alt="薛杨与团队在第十四届建设银行“挑战杯”山东省大学生创业计划竞赛展板前合影" width="1600" height="1200" loading="lazy" decoding="async" />
           <span class="project__badge">省级银奖</span>
           <button class="proof" type="button" data-lightbox="assets/images/cert-tiaozhan.jpg" data-caption="第十四届“挑战杯”山东省大学生创业计划竞赛 · 银奖证书" aria-label="查看挑战杯银奖证书大图">
-            <img src="assets/images/cert-tiaozhan.jpg" alt="" width="1500" height="992" loading="lazy" />
+            <img src="assets/images/cert-tiaozhan.jpg" alt="" width="1500" height="992" loading="lazy" decoding="async" />
             <span class="proof__tag">查看证书</span>
           </button>
         </div>
@@ -405,10 +426,10 @@
 
       <article class="project project--reverse" data-reveal>
         <div class="project__media">
-          <img src="assets/images/project-sci.jpg" alt="薛杨与团队在山东省第十届大学生科技创新大赛背景板前合影" width="1600" height="1200" loading="lazy" />
+          <img src="assets/images/project-sci.jpg" alt="薛杨与团队在山东省第十届大学生科技创新大赛背景板前合影" width="1600" height="1200" loading="lazy" decoding="async" />
           <span class="project__badge project__badge--gold">省级金奖</span>
           <button class="proof" type="button" data-lightbox="assets/images/cert-sci-innovation.jpg" data-caption="山东省第十届大学生科技创新大赛 · 一等奖证书" aria-label="查看科创大赛一等奖证书大图">
-            <img src="assets/images/cert-sci-innovation.jpg" alt="" width="1600" height="1154" loading="lazy" />
+            <img src="assets/images/cert-sci-innovation.jpg" alt="" width="1600" height="1154" loading="lazy" decoding="async" />
             <span class="proof__tag">查看证书</span>
           </button>
         </div>
@@ -427,15 +448,46 @@
         </div>
       </article>
 
+      <!-- 路演视频位 -->
+      <figure class="pitch" data-reveal>
+        <div class="pitch__media">
+          <video
+            class="pitch__video is-idle"
+            controls
+            playsinline
+            preload="none"
+            poster="assets/images/pitch-poster.jpg"
+            width="1280"
+            height="720"
+            data-src="assets/video/pitch.mp4"
+            aria-label="2024 中国国际大学生创新大赛校赛路演答辩实录"
+          ></video>
+          <div class="pitch__placeholder is-idle">
+            <span class="pitch__play">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.4 5.2v13.6L19.6 12z" fill="currentColor" /></svg>
+            </span>
+            <span class="pitch__status"><i></i>创新大赛 · 校赛路演 04:51</span>
+          </div>
+        </div>
+        <figcaption class="pitch__body">
+          <p class="pitch__k">路演 / 答辩</p>
+          <h3>把复杂的事，<br />讲成几分钟。</h3>
+          <p class="pitch__desc">
+            2024 中国国际大学生创新大赛校赛路演、国家奖学金答辩、客户面前的产品讲解——本质是同一件事：在有限时间里，让人听懂、相信、愿意跟。
+          </p>
+          <p class="pitch__note">点击封面播放完整实录 · 4 分 51 秒</p>
+        </figcaption>
+      </figure>
+
       <div class="internships">
         <h3 class="subhead" data-reveal>实习经历</h3>
         <div class="intern-grid">
           <article class="intern" data-reveal>
             <div class="intern__media slider" data-slider data-autoplay="4400">
               <div class="slider__stage">
-                <img class="is-active" data-label="厂区门口" src="assets/images/intern-puwei-1.jpg" alt="普为（上海）新材料位于上海奉贤的厂区门口，蓝白色公司标牌" width="1200" height="750" loading="lazy" />
-                <img data-label="实验室" src="assets/images/intern-puwei-2.jpg" alt="在实验室里穿白大褂、戴手套，手持金属样品" width="1200" height="750" loading="lazy" />
-                <img data-label="与同事在厂区" src="assets/images/intern-puwei-3.jpg" alt="薛杨与同事在化工厂装置前合影" width="1200" height="750" loading="lazy" />
+                <img class="is-active" data-label="厂区门口" src="assets/images/intern-puwei-1.jpg" alt="普为（上海）新材料位于上海奉贤的厂区门口，蓝白色公司标牌" width="1200" height="750" loading="lazy" decoding="async" />
+                <img data-label="实验室" src="assets/images/intern-puwei-2.jpg" alt="在实验室里穿白大褂、戴手套，手持金属样品" width="1200" height="750" loading="lazy" decoding="async" />
+                <img data-label="与同事在厂区" src="assets/images/intern-puwei-3.jpg" alt="薛杨与同事在化工厂装置前合影" width="1200" height="750" loading="lazy" decoding="async" />
               </div>
               <div class="slider__bar">
                 <span class="slider__label" data-slide-label>厂区门口</span>
@@ -451,9 +503,9 @@
           <article class="intern" data-reveal style="--d:.08s">
             <div class="intern__media slider" data-slider data-autoplay="4400">
               <div class="slider__stage">
-                <img class="is-active" data-label="教具" src="assets/images/intern-ximai-1.jpg" alt="手里拿着拼装好的 EV3 机器人，桌上是零件盒" width="1200" height="750" loading="lazy" />
-                <img data-label="备课" src="assets/images/intern-ximai-2.jpg" alt="黑板上的课程主题、关键词与活动目标板书" width="1200" height="750" loading="lazy" />
-                <img data-label="教室" src="assets/images/intern-ximai-3.jpg" alt="机器人课堂的教室：桌上摆满积木零件、EV3 主机与控制器" width="1200" height="750" loading="lazy" />
+                <img class="is-active" data-label="教具" src="assets/images/intern-ximai-1.jpg" alt="手里拿着拼装好的 EV3 机器人，桌上是零件盒" width="1200" height="750" loading="lazy" decoding="async" />
+                <img data-label="备课" src="assets/images/intern-ximai-2.jpg" alt="黑板上的课程主题、关键词与活动目标板书" width="1200" height="750" loading="lazy" decoding="async" />
+                <img data-label="教室" src="assets/images/intern-ximai-3.jpg" alt="机器人课堂的教室：桌上摆满积木零件、EV3 主机与控制器" width="1200" height="750" loading="lazy" decoding="async" />
               </div>
               <div class="slider__bar">
                 <span class="slider__label" data-slide-label>教具</span>
@@ -464,6 +516,54 @@
               <p class="intern__time">2025.05 — 2025.07</p>
               <h4>讲师<span>临沂希麦机器人技术服务有限公司</span></h4>
               <p>青少儿编程与硬件课程授课，累计 100+ 课时；参与教学体系优化；负责学情沟通，提升课程续费率与转介绍率。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="campus">
+        <h3 class="subhead" data-reveal>在校实践</h3>
+        <div class="campus-grid">
+          <article class="ccard" data-reveal>
+            <div class="ccard__media">
+              <img src="assets/images/campus-kongzi.jpg" alt="孔子文化节志愿服务现场，薛杨与中外青年学生在礼堂合影" width="1200" height="750" loading="lazy" decoding="async" />
+            </div>
+            <div class="ccard__body">
+              <p class="ccard__time">2023.09.20 — 09.22 · 曲阜</p>
+              <h4>中国（曲阜）国际孔子文化节 · 志愿者</h4>
+              <p>参与节会前期筹备与现场服务，也和来自不同国家的青年学生一起做了文化交流。</p>
+              <div class="ccard__tags"><span>志愿服务</span><span>文化交流</span></div>
+            </div>
+          </article>
+
+          <article class="ccard" data-reveal style="--d:.06s">
+            <div class="ccard__media ccard__media--video">
+              <video src="assets/video/hospital-volunteer.mp4" controls muted playsinline preload="metadata" poster="assets/images/campus-hospital.jpg"></video>
+            </div>
+            <div class="ccard__body">
+              <p class="ccard__time">2024.03.01 — 04.01 · 一个月</p>
+              <h4>济宁医学院附属医院 · 志愿服务</h4>
+              <p>在门诊做引导、协助与秩序维护。一个月里见得最多的是等待，学会的是耐心。</p>
+              <div class="ccard__tags"><span>志愿服务</span><span>医患沟通</span></div>
+            </div>
+          </article>
+
+          <article class="ccard" data-reveal style="--d:.12s">
+            <div class="ccard__media slider" data-slider data-autoplay="4600">
+              <div class="slider__stage">
+                <img class="is-active" data-label="古道考察" src="assets/images/campus-gudao-1.jpg" alt="齐鲁古道行团队在石拱桥前举横幅合影" width="1200" height="750" loading="lazy" decoding="async" />
+                <img data-label="途中讲解" src="assets/images/campus-gudao-2.jpg" alt="薛杨在古城墙前手持话筒讲解" width="1200" height="750" loading="lazy" decoding="async" />
+              </div>
+              <div class="slider__bar">
+                <span class="slider__label" data-slide-label>古道考察</span>
+                <div class="slider__dots" aria-label="切换照片"></div>
+              </div>
+            </div>
+            <div class="ccard__body">
+              <p class="ccard__time">2025.10.20 — 10.27 · 七天</p>
+              <h4>「齐鲁古道行」文化考察</h4>
+              <p>从临淄稷下学宫出发，经青石关、齐长城，到曲阜鲁国故城。白天走遗址、听讲解，晚上复盘；途中做讲解与记录。</p>
+              <div class="ccard__tags"><span>研学</span><span>文化考察</span><span>讲解</span></div>
             </div>
           </article>
         </div>
@@ -603,26 +703,26 @@
 
         <div class="certs" aria-label="证书与参赛证明">
           <figure class="cert" data-reveal>
-            <img src="assets/images/cert-national-scholarship.jpg" alt="国家奖学金荣誉证书（证书编号已隐藏）" width="1400" height="886" loading="lazy" />
+            <img src="assets/images/cert-national-scholarship.jpg" alt="国家奖学金荣誉证书（证书编号已隐藏）" width="1400" height="886" loading="lazy" decoding="async" />
             <figcaption>国家奖学金 · 2023—2024</figcaption>
           </figure>
           <figure class="cert" data-reveal style="--d:.06s">
-            <img src="assets/images/cert-tiaozhan.jpg" alt="第十四届挑战杯山东省大学生创业计划竞赛银奖证书（证书编号已隐藏）" width="1500" height="992" loading="lazy" />
+            <img src="assets/images/cert-tiaozhan.jpg" alt="第十四届挑战杯山东省大学生创业计划竞赛银奖证书（证书编号已隐藏）" width="1500" height="992" loading="lazy" decoding="async" />
             <figcaption>“挑战杯”省级银奖</figcaption>
           </figure>
           <figure class="cert" data-reveal style="--d:.12s">
-            <img src="assets/images/cert-sci-innovation.jpg" alt="山东省第十届大学生科技创新大赛一等奖证书" width="1600" height="1154" loading="lazy" />
+            <img src="assets/images/cert-sci-innovation.jpg" alt="山东省第十届大学生科技创新大赛一等奖证书" width="1600" height="1154" loading="lazy" decoding="async" />
             <figcaption>山东省科创大赛 · 一等奖</figcaption>
           </figure>
           <figure class="cert" data-reveal style="--d:.18s">
-            <img src="assets/images/award-pass.jpg" alt="山东省第十届大学生科技创新大赛参赛证" width="1200" height="900" loading="lazy" />
+            <img src="assets/images/award-pass.jpg" alt="山东省第十届大学生科技创新大赛参赛证" width="1200" height="900" loading="lazy" decoding="async" />
             <figcaption>科创大赛 · 参赛证 2024.01</figcaption>
           </figure>
         </div>
       </div>
 
       <figure class="moment" data-reveal data-lightbox="assets/images/award-defense.jpg" data-caption="2024 年国家奖学金答辩现场">
-        <img src="assets/images/award-defense.jpg" alt="2024 年国家奖学金答辩现场，薛杨站在舞台上，身后大屏写着“无限进步”" width="1700" height="1275" loading="lazy" />
+        <img src="assets/images/award-defense.jpg" alt="2024 年国家奖学金答辩现场，薛杨站在舞台上，身后大屏写着“无限进步”" width="1700" height="1275" loading="lazy" decoding="async" />
         <figcaption>
           <span class="moment__k">2024 · 国家奖学金答辩</span>
           <span class="moment__s">代表机电工程学院上台答辩。屏幕上写的是“无限进步”，台下是没人看见的准备。</span>
@@ -648,24 +748,24 @@
       <div class="journal">
         <div class="journal__col">
           <figure class="shot shot--p" data-reveal>
-            <img src="assets/images/summit-5008.jpg" alt="薛杨在海拔 5008 米的萨武拉格唐拉卡垭口，戴着雪镜与毛线帽，比出 V 字手势" width="1125" height="1500" loading="lazy" />
+            <img src="assets/images/summit-5008.jpg" alt="薛杨在海拔 5008 米的萨武拉格唐拉卡垭口，戴着雪镜与毛线帽，比出 V 字手势" width="1125" height="1500" loading="lazy" decoding="async" />
             <figcaption><span class="shot__num">01</span><span class="shot__title">萨武垭口 · 5008 m</span><span class="shot__sub">风大得说不出话，但那天的云很干净。</span></figcaption>
           </figure>
 
           <figure class="shot shot--p" data-reveal style="--d:.06s">
-            <img src="assets/images/life-wutai2.jpg" alt="五台山的草甸上，牛群散在坡上，薛杨背着背包指向远处" width="1100" height="1467" loading="lazy" />
+            <img src="assets/images/life-wutai2.jpg" alt="五台山的草甸上，牛群散在坡上，薛杨背着背包指向远处" width="1100" height="1467" loading="lazy" decoding="async" />
             <figcaption><span class="shot__num">02</span><span class="shot__title">五台山 · 草甸</span><span class="shot__sub">走过会喘气的草甸，牛比人自在。</span></figcaption>
           </figure>
         </div>
 
         <div class="journal__col">
           <figure class="shot shot--p" data-reveal style="--d:.12s">
-            <img src="assets/images/summit-4060.jpg" alt="薛杨在海拔 4060 米的大本营标牌旁" width="1125" height="1500" loading="lazy" />
+            <img src="assets/images/summit-4060.jpg" alt="薛杨在海拔 4060 米的大本营标牌旁" width="1125" height="1500" loading="lazy" decoding="async" />
             <figcaption><span class="shot__num">03</span><span class="shot__title">大本营 · 4060 m</span><span class="shot__sub">雪线以上，所有动作都要慢半拍。</span></figcaption>
           </figure>
 
           <figure class="shot shot--p" data-reveal style="--d:.18s">
-            <img src="assets/images/life-bund.jpg" alt="夜色中的上海外滩，薛杨与朋友在亮着灯的万国建筑前自拍" width="1125" height="1500" loading="lazy" />
+            <img src="assets/images/life-bund.jpg" alt="夜色中的上海外滩，薛杨与朋友在亮着灯的万国建筑前自拍" width="1125" height="1500" loading="lazy" decoding="async" />
             <figcaption><span class="shot__num">04</span><span class="shot__title">上海 · 外滩的夜</span><span class="shot__sub">夜里的外滩，比白天更适合发呆。</span></figcaption>
           </figure>
         </div>
@@ -752,10 +852,13 @@
   </section>
 </main>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="证书大图" aria-hidden="true">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片大图查看" aria-hidden="true">
   <button class="lightbox__close" id="lightboxClose" aria-label="关闭大图">✕</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="上一张">‹</button>
+  <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="下一张">›</button>
   <img id="lightboxImg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" />
   <p class="lightbox__cap" id="lightboxCap"></p>
+  <p class="lightbox__count" id="lightboxCount"></p>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
