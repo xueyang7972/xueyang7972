@@ -205,6 +205,9 @@
       const imgs = Array.from(el.querySelectorAll('.slider__stage img'));
       if (imgs.length < 2) return;
 
+      el.setAttribute('tabindex', '0');
+      el.classList.add('slider--swipeable');
+
       const dotsWrap = el.querySelector('.slider__dots');
       const label = el.querySelector('[data-slide-label]');
       const interval = parseInt(el.dataset.autoplay || '0', 10);
@@ -250,6 +253,61 @@
       el.addEventListener('focusin', () => { paused = true; });
       el.addEventListener('focusout', () => { paused = false; });
 
+      /* 触屏/鼠标滑动切换：手指横向拖过 40px 就翻页 */
+      let startX = 0, startY = 0, dragging = false, lockedAxis = null;
+
+      el.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragging = true;
+        lockedAxis = null;
+        startX = e.clientX;
+        startY = e.clientY;
+        paused = true;
+      });
+
+      el.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (!lockedAxis && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+          lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        }
+        if (lockedAxis === 'x') {
+          el.style.cursor = 'grabbing';
+          if (e.cancelable) e.preventDefault();
+        }
+      }, { passive: false });
+
+      const endDrag = (e) => {
+        if (!dragging) return;
+        dragging = false;
+        el.style.cursor = '';
+        const dx = (e.clientX || 0) - startX;
+        const dy = (e.clientY || 0) - startY;
+        const moved = Math.abs(dx) > 10 || Math.abs(dy) > 10;
+        if (moved) el.dataset.dragged = '1';
+        if (lockedAxis === 'x' && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+          go(dx < 0 ? index + 1 : index - 1);
+        } else {
+          paused = false;
+        }
+        lockedAxis = null;
+        restart();
+      };
+
+      el.addEventListener('pointerup', endDrag);
+      el.addEventListener('pointercancel', endDrag);
+      el.addEventListener('pointerleave', (e) => {
+        if (dragging) endDrag(e);
+        paused = false;
+      });
+
+      /* 键盘左右键也能翻 */
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); restart(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); restart(); }
+      });
+
       if ('IntersectionObserver' in window) {
         new IntersectionObserver((entries) => {
           entries.forEach((e) => { visible = e.isIntersecting; });
@@ -258,6 +316,62 @@
 
       go(0);
       restart();
+    });
+  }
+
+  /* ---------- 5d. background video in cards ---------- */
+  function initVideos() {
+    const vids = doc.querySelectorAll('[data-autoplay-video]');
+    if (!vids.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      vids.forEach((v) => { v.play().catch(() => {}); });
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.35 });
+
+    vids.forEach((v) => io.observe(v));
+  }
+
+  /* ---------- 5d. 路演视频：点击才真正加载 ---------- */
+  /* 性能优化 3：视频有好几 MB，不让它抢首屏带宽。
+     平时只显示 poster 封面，用户点了才把 data-src 赋给 src 开始下载。 */
+  function initPitchVideo() {
+    const video = doc.querySelector('.pitch__video');
+    const cover = doc.querySelector('.pitch__placeholder');
+    if (!video || !cover) return;
+
+    cover.setAttribute('role', 'button');
+    cover.setAttribute('tabindex', '0');
+    cover.setAttribute('aria-label', '播放路演实录');
+
+    const start = () => {
+      const src = video.getAttribute('data-src');
+      if (src && !video.getAttribute('src')) {
+        video.setAttribute('src', src);
+        video.load();
+      }
+      cover.classList.add('is-hidden');
+      video.classList.remove('is-idle');
+      video.play().catch(() => {});
+    };
+
+    cover.addEventListener('click', start);
+    cover.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        start();
+      }
     });
   }
 
@@ -332,14 +446,51 @@
 
     let lastFocus = null;
 
-    const open = (src, alt, label) => {
+    /* 收集所有可放大查看的图片，按页面顺序排成一个"相册" */
+    const gallery = [];
+    const seen = new Set();
+
+    const collect = (src, alt, caption) => {
+      if (!src || seen.has(src)) return -1;
+      seen.add(src);
+      gallery.push({ src, alt: alt || '', caption: caption || '' });
+      return gallery.length - 1;
+    };
+
+    let current = -1;
+
+    /* 把相册里所有图都预加载，滑动时不会白屏 */
+    const preload = () => {
+      gallery.forEach((item) => {
+        const i = new Image();
+        i.src = item.src;
+      });
+    };
+
+    const render = (idx) => {
+      if (!gallery.length) return;
+      current = (idx + gallery.length) % gallery.length;
+      const item = gallery[current];
+      img.src = item.src;
+      img.alt = item.alt;
+      if (cap) cap.textContent = item.caption;
+      if (counter) counter.textContent = (current + 1) + ' / ' + gallery.length;
+      const single = gallery.length < 2;
+      if (prevBtn) prevBtn.hidden = single;
+      if (nextBtn) nextBtn.hidden = single;
+    };
+
+    const counter = doc.getElementById('lightboxCount');
+    const prevBtn = doc.getElementById('lightboxPrev');
+    const nextBtn = doc.getElementById('lightboxNext');
+
+    const open = (idx) => {
       lastFocus = doc.activeElement;
-      img.src = src;
-      img.alt = alt || '';
-      if (cap) cap.textContent = label || '';
       box.classList.add('is-open');
       box.setAttribute('aria-hidden', 'false');
       doc.body.style.overflow = 'hidden';
+      render(idx);
+      preload();
       closeBtn.focus({ preventScroll: true });
     };
 
@@ -349,6 +500,8 @@
       doc.body.style.overflow = '';
       if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
     };
+
+    const step = (d) => { if (gallery.length > 1) render(current + d); };
 
     const labelOf = (el, inner) => {
       const attr = el.getAttribute('data-caption');
@@ -360,37 +513,74 @@
         return t.textContent + (s ? ' · ' + s.textContent : '');
       }
       const fig = el.querySelector('figcaption');
-      return fig ? fig.textContent.replace(/\s+/g, ' ').trim() : '';
+      if (fig) return fig.textContent.replace(/\s+/g, ' ').trim();
+      return inner.alt || '';
     };
 
-    const triggers = doc.querySelectorAll('.cert, .shot, [data-lightbox]');
-    triggers.forEach((el) => {
-      const inner = el.querySelector('img');
-      const direct = el.getAttribute('data-lightbox');
-      if (!inner && !direct) return;
-      const trigger = () => {
-        const src = direct || (inner ? (inner.currentSrc || inner.src) : '');
-        if (!src) return;
-        const label = labelOf(el, inner);
-        open(src, inner ? inner.alt : label, label);
-      };
-      if (el.tagName !== 'BUTTON') {
-        el.setAttribute('role', 'button');
-        el.setAttribute('tabindex', '0');
+    /* 1) 先扫一遍所有图片，登记进相册（保持页面顺序） */
+    const allImgs = doc.querySelectorAll('main img, .story__media img, .lightbox-less img');
+    const idxMap = new Map();
+    allImgs.forEach((image) => {
+      const src = image.getAttribute('src');
+      if (!src) return;
+      const holder = image.closest('figure, .cert, .shot, [data-lightbox]');
+      const caption = holder ? labelOf(holder, image) : (image.alt || '');
+      const i = collect(src, image.alt, caption);
+      if (i >= 0) idxMap.set(image, i);
+    });
+
+    /* 2) 让每张图片都能点开 */
+    allImgs.forEach((image) => {
+      const i = idxMap.get(image);
+      if (i === undefined) return;
+      const host = image.closest('.cert, .shot, [data-lightbox], button') || image;
+
+      if (host.tagName !== 'BUTTON' && !host.hasAttribute('data-lightbox')) {
+        host.setAttribute('role', 'button');
+        host.setAttribute('tabindex', '0');
+        host.setAttribute('aria-label', '查看大图：' + (image.alt || ''));
       }
-      el.addEventListener('click', trigger);
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          trigger();
+
+      const trigger = (e) => {
+        /* 轮播里的图：刚拖过就不算点击，别误触放大 */
+        const swipeHost = image.closest('[data-slider]');
+        if (swipeHost && swipeHost.dataset.dragged === '1') {
+          swipeHost.dataset.dragged = '';
+          return;
         }
+        if (e) e.stopPropagation();
+        open(i);
+      };
+
+      host.addEventListener('click', trigger);
+      host.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger(); }
       });
+    });
+
+    /* 3) 灯箱里的左右切换 */
+    if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => step(1));
+
+    let lx = 0, ly = 0, ldown = false;
+    box.addEventListener('pointerdown', (e) => {
+      ldown = true; lx = e.clientX; ly = e.clientY;
+    });
+    box.addEventListener('pointerup', (e) => {
+      if (!ldown) return;
+      ldown = false;
+      const dx = e.clientX - lx, dy = e.clientY - ly;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+      else if (Math.abs(dy) > 90 && Math.abs(dy) > Math.abs(dx)) close();
     });
 
     closeBtn.addEventListener('click', close);
     box.addEventListener('click', (e) => { if (e.target === box) close(); });
     doc.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && box.classList.contains('is-open')) close();
+      if (!box.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
     });
   }
 
@@ -443,6 +633,8 @@
     initParallax();
     initHeroScroll();
     initSliders();
+    initVideos();
+    initPitchVideo();
     initMenu();
     initCopy();
     initLightbox();
